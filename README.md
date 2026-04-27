@@ -1,5 +1,9 @@
 # SceneMate
 
+<img width="1586" height="1058" alt="image" src="https://github.com/user-attachments/assets/1e0b1b2b-2c3a-4990-b902-7dc534447892" />
+
+<br>
+
 カメラマンとモデルをつなぐマッチングサービス。  
 撮影パートナーを探して、理想の写真を一緒に作ろう。
 
