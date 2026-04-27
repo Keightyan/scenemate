@@ -1,59 +1,147 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# SceneMate
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+カメラマンとモデルをつなぐマッチングサービス。  
+撮影パートナーを探して、理想の写真を一緒に作ろう。
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 概要
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+SceneMateは、カメラマンとモデルが互いに募集投稿を行い、メッセージを通じてマッチングするWebサービスです。  
+個人開発によるポートフォリオ作品として、実務を想定した設計・実装を行いました。
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## 機能一覧
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### 認証
+- メールアドレスによるユーザー登録・ログイン
+- パスワードリセット（メール送信）
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### ロール・モード
+- カメラマン / モデルのロールを選択（両方選択可）
+- 両ロール所持者はモードを切り替えて利用可能
+- モードに応じた投稿一覧・ナビゲーションの出し分け
 
-## Laravel Sponsors
+### 募集投稿
+- モデル募集 / カメラマン募集の投稿作成・編集・削除
+- 都道府県・市区町村・対象性別・対象年齢・報酬などの詳細条件設定
+- 投稿の公開・停止切り替え
+- モードによる閲覧制限（自分のロールに合った募集のみ表示）
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### プロフィール
+- アバター画像アップロード
+- カメラマン情報（経験レベル・機材・ジャンル・Instagramアカウントなど）
+- モデル情報（身長・スタイル・活動エリアなど）
+- 作品・写真のアップロード（各最大6枚・40MBまで）
+- 性別・生年月日は設定後に変更不可
 
-### Premium Partners
+### メッセージ
+- 募集投稿ページからワンクリックでスレッド作成
+- スレッドごとのメッセージ履歴表示
+- 未読メッセージのバッジ表示（ヘッダー）
+- 新着メッセージのメール通知
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### その他
+- 募集投稿のブックマーク（いいね）
+- ユーザーのブロック
+- ユーザー・投稿の通報（運営へメール通知）
+- 都道府県での絞り込み検索
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## 技術スタック
 
-## Code of Conduct
+| 区分 | 技術 |
+|---|---|
+| バックエンド | PHP 8.2 / Laravel 12 |
+| フロントエンド | Blade / TailwindCSS v4 / Vite |
+| データベース | MySQL 8 |
+| 開発環境 | Docker / Laravel Sail |
+| バージョン管理 | Git / GitHub |
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+## 画面構成
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```
+/                   トップページ（最新募集・ヒーローセクション）
+/posts              募集一覧（モデル募集 / カメラマン募集）
+/posts/{id}         募集詳細
+/posts/create       募集投稿
+/users/{id}         ユーザープロフィール
+/me                 マイページ
+/me/edit            プロフィール編集
+/messages           メッセージ一覧
+/messages/{id}      メッセージスレッド
+/guide              使い方ガイド
+```
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## DB設計（主要テーブル）
+
+```
+users               ユーザー情報（性別・生年月日・モードなど）
+roles               ロール定義（cameraman / model）
+role_user           ユーザーとロールの中間テーブル
+cameraman_profiles  カメラマンプロフィール
+model_profiles      モデルプロフィール
+profile_photos      プロフィール写真（作品・モデル写真）
+posts               募集投稿
+likes               ブックマーク
+threads             メッセージスレッド
+messages            メッセージ
+user_blocks         ブロック
+reports             通報
+```
+
+---
+
+## ローカル環境での起動手順
+
+```bash
+# リポジトリをクローン
+git clone https://github.com/Keightyan/scenemate.git
+cd scenemate
+
+# 環境変数を設定
+cp .env.example .env
+
+# Composerパッケージをインストール
+docker run --rm -v $(pwd):/app composer install
+
+# コンテナ起動
+./vendor/bin/sail up -d
+
+# アプリケーションキーを生成
+./vendor/bin/sail artisan key:generate
+
+# マイグレーション実行
+./vendor/bin/sail artisan migrate
+
+# ストレージリンク作成
+./vendor/bin/sail artisan storage:link
+
+# フロントエンドビルド
+./vendor/bin/sail npm install
+./vendor/bin/sail npm run build
+```
+
+起動後、http://localhost でアクセスできます。
+
+---
+
+## 工夫した点
+
+- **HTML5 `form` 属性**を使ったネストできないフォームの解決（プロフィール編集ページ）
+- **モードによる表示制御**：ロールに応じて閲覧できる投稿・ナビゲーションを動的に切り替え
+- **自己防御の実装**：自分の投稿へのいいね防止・自分自身の通報禁止など
+- **レスポンシブ対応**：モバイルファーストのハンバーガーメニュー・グリッドレイアウト
+- **未読バッジ**：DBクエリで未読スレッドを判定し、ヘッダーにリアルタイム表示
+
+---
+
+## 作者
+
+- GitHub: [@Keightyan](https://github.com/Keightyan)
